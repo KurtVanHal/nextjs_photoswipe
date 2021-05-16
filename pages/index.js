@@ -72,7 +72,9 @@ export default function Home() {
               itemProp='contentUrl'
               data-size={`${slide.w}x${slide.h}`}
             >
-              <img
+              <Image
+                width={slide.w}
+                height={slide.h}
                 src={slide.src}
                 itemProp='thumbnail'
                 alt='Image description'
