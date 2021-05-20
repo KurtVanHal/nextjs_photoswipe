@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 
 import { chunk } from 'lodash';
 import 'photoswipe/dist/photoswipe.css';
@@ -10,12 +9,9 @@ import initPhotoSwipeFromDOM from '../utilities/initPhotoSwipeFromDom';
 import slides from '../data/slides';
 
 export default function Home() {
-  const [columnsAmount, setColumnsAmount] = useState(1);
+  const amount = (slides.length + 1) / 4;
+  const slidesChunk = chunk(slides, amount);
 
-  if (typeof window !== 'undefined') {
-    window.onresize = resizeWindow;
-    function resizeWindow() {}
-  }
   useEffect(() => {
     initPhotoSwipeFromDOM('.my-gallery');
   }, []);
@@ -26,28 +22,45 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           flex-wrap: wrap;
-          max-width: 50%;
           margin: 0 auto;
-          // max-height: 1000px;
+          // width: 100%;
+        }
+
+        .row {
+          display: flex;
+          padding: 0 4px;
+          flex-wrap: wrap;
+        }
+
+        .column {
+          flex: 25%;
+          max-width: 25%;
+          padding: 0 px;
+        }
+
+        .column img {
+          width: 100%;
+          margin-top: 4px;
+          verticalalign: middle;
         }
 
         figure {
-          margin: 5px;
+          margin: 4px;
         }
 
-        img {
-          width: 100%;
+        @media (max-width: 800px) {
+          .column {
+            flex: 50%;
+            max-width: 50%;
+          }
         }
 
-        // .row {
-        //   display: flex;
-        //   padding: 0 4px;
-        // }
-
-        // .column {
-        //   flex: 50%;
-        //   padding: 0 4px;
-        // }
+        @media screen and (max-width: 600px) {
+          .column {
+            flex: 100%;
+            max-width: 100%;
+          }
+        }
 
         // .column img {
         //   margin-top: 8px;
@@ -59,31 +72,92 @@ export default function Home() {
         itemScope
         itemType='http://schema.org/ImageGallery'
       >
-        {/* <div className='row'>
-          <div className='column'> */}
-        {slides.map((slide) => (
-          <figure
-            itemProp='associatedMedia'
-            itemScope
-            itemType='http://schema.org/ImageObject'
-          >
-            <a
-              href={slide.src}
-              itemProp='contentUrl'
-              data-size={`${slide.w}x${slide.h}`}
-            >
-              <Image
-                width={slide.w}
-                height={slide.h}
-                src={slide.src}
-                itemProp='thumbnail'
-                alt='Image description'
-              />
-            </a>
-          </figure>
-        ))}
-        {/* </div>
-        </div> */}
+        <div className='row'>
+          <div className='column'>
+            {slidesChunk[0].map((slide) => (
+              <figure
+                itemProp='associatedMedia'
+                itemScope
+                itemType='http://schema.org/ImageObject'
+              >
+                <a
+                  href={slide.src}
+                  itemProp='contentUrl'
+                  data-size={`${slide.w}x${slide.h}`}
+                >
+                  <img
+                    src={slide.src}
+                    itemProp='thumbnail'
+                    alt='Image description'
+                  />
+                </a>
+              </figure>
+            ))}
+          </div>
+          <div className='column'>
+            {slidesChunk[1].map((slide) => (
+              <figure
+                itemProp='associatedMedia'
+                itemScope
+                itemType='http://schema.org/ImageObject'
+              >
+                <a
+                  href={slide.src}
+                  itemProp='contentUrl'
+                  data-size={`${slide.w}x${slide.h}`}
+                >
+                  <img
+                    src={slide.src}
+                    itemProp='thumbnail'
+                    alt='Image description'
+                  />
+                </a>
+              </figure>
+            ))}
+          </div>
+          <div className='column'>
+            {slidesChunk[2].map((slide) => (
+              <figure
+                itemProp='associatedMedia'
+                itemScope
+                itemType='http://schema.org/ImageObject'
+              >
+                <a
+                  href={slide.src}
+                  itemProp='contentUrl'
+                  data-size={`${slide.w}x${slide.h}`}
+                >
+                  <img
+                    src={slide.src}
+                    itemProp='thumbnail'
+                    alt='Image description'
+                  />
+                </a>
+              </figure>
+            ))}
+          </div>
+          <div className='column'>
+            {slidesChunk[3].map((slide) => (
+              <figure
+                itemProp='associatedMedia'
+                itemScope
+                itemType='http://schema.org/ImageObject'
+              >
+                <a
+                  href={slide.src}
+                  itemProp='contentUrl'
+                  data-size={`${slide.w}x${slide.h}`}
+                >
+                  <img
+                    src={slide.src}
+                    itemProp='thumbnail'
+                    alt='Image description'
+                  />
+                </a>
+              </figure>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className='pswp' tabIndex='-1' role='dialog' aria-hidden='true'>
