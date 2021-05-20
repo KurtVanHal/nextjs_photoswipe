@@ -6,7 +6,7 @@ import 'photoswipe/dist/default-skin/default-skin.css';
 
 import initPhotoSwipeFromDOM from '../utilities/initPhotoSwipeFromDom';
 
-import slides from '../data/slides';
+import slides from '../data/Wagendecoratie';
 
 export default function Home() {
   const amount = (slides.length + 1) / 4;
@@ -19,28 +19,24 @@ export default function Home() {
     <>
       <style jsx>{`
         .my-gallery {
-          display: flex;
-          flex-direction: column;
-          flex-wrap: wrap;
+          max-width: 1200px;
           margin: 0 auto;
-          // width: 100%;
         }
-
         .row {
           display: flex;
-          padding: 0 4px;
+          // padding: 0 0px;
           flex-wrap: wrap;
         }
 
         .column {
           flex: 25%;
           max-width: 25%;
-          padding: 0 px;
+          padding: 0px;
         }
 
         .column img {
           width: 100%;
-          margin-top: 4px;
+          // margin-top: 4px;
           verticalalign: middle;
         }
 
